@@ -7,6 +7,7 @@
     <tr>
       <th>Name</th>
       <th>Description</th>
+      <th>Products</th>
       <th>Total amount</th>
       <th>Is active</th>
       <th colspan="3"></th>
@@ -18,6 +19,7 @@
       <tr>
         <td><%= subscription.name %></td>
         <td><%= subscription.description %></td>
+        <td><%= subscription.products.pluck(:name).join(", ") if subscription.products.present? %></td>
         <td><%= subscription.total_amount %></td>
         <td><%= subscription.is_active %></td>
         <td><%= link_to 'Show', subscription %></td>
