@@ -1,0 +1,35 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  subscription: one
+  buy_order: MyString
+  token: MyString
+  amount: 9.99
+  status: 1
+  card_number: MyString
+  transaction_date: 2022-06-14 15:58:49
+  payment_type_code: 1
+  installments_amount: 9.99
+  installments_number: 1
+  balance: 9.99
+  authorization_code: MyString
+  authorization_date: 2022-06-14 15:58:49
+  nullified_amount: 9.99
+
+two:
+  user: two
+  subscription: two
+  buy_order: MyString
+  token: MyString
+  amount: 9.99
+  status: 1
+  card_number: MyString
+  transaction_date: 2022-06-14 15:58:49
+  payment_type_code: 1
+  installments_amount: 9.99
+  installments_number: 1
+  balance: 9.99
+  authorization_code: MyString
+  authorization_date: 2022-06-14 15:58:49
+  nullified_amount: 9.99

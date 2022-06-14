@@ -1,0 +1,79 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @order.user_id %>
+</p>
+
+<p>
+  <strong>Subscription:</strong>
+  <%= @order.subscription_id %>
+</p>
+
+<p>
+  <strong>Buy order:</strong>
+  <%= @order.buy_order %>
+</p>
+
+<p>
+  <strong>Token:</strong>
+  <%= @order.token %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @order.amount %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @order.status %>
+</p>
+
+<p>
+  <strong>Card number:</strong>
+  <%= @order.card_number %>
+</p>
+
+<p>
+  <strong>Transaction date:</strong>
+  <%= @order.transaction_date %>
+</p>
+
+<p>
+  <strong>Payment type code:</strong>
+  <%= @order.payment_type_code %>
+</p>
+
+<p>
+  <strong>Installments amount:</strong>
+  <%= @order.installments_amount %>
+</p>
+
+<p>
+  <strong>Installments number:</strong>
+  <%= @order.installments_number %>
+</p>
+
+<p>
+  <strong>Balance:</strong>
+  <%= @order.balance %>
+</p>
+
+<p>
+  <strong>Authorization code:</strong>
+  <%= @order.authorization_code %>
+</p>
+
+<p>
+  <strong>Authorization date:</strong>
+  <%= @order.authorization_date %>
+</p>
+
+<p>
+  <strong>Nullified amount:</strong>
+  <%= @order.nullified_amount %>
+</p>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>
