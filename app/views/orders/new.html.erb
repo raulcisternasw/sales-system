@@ -1,5 +1,12 @@
-<h1>New Order</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h1>New Order</h1>
+    </div>
+  </div>
 
-<%= render 'form', order: @order %>
-
-<%= link_to 'Back', orders_path %>
+  <%= render 'form', order: @order, users: @users, subscriptions: @subscriptions, status: @status, payment_type_codes: @payment_type_codes %>
+  <br>
+  <%= link_to 'Back', orders_path %>
+</div>
+<br>

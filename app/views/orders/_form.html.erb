@@ -1,92 +1,94 @@
-<%= form_with(model: order) do |form| %>
-  <% if order.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
-
-      <ul>
-        <% order.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <%= form_with(model: order) do |form| %>
+        <% if order.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(order.errors.count, 'error') %> prohibited this order from being saved:</h2>
+            <ul>
+              <% order.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
+
+        <div class="field">
+          <%= form.label :user %>
+          <%= form.select :user_id, users, { include_blank: 'Select a user' }, { required: true, class: 'form-control' } %>
+        </div>
+
+        <div class="field">
+          <%= form.label :subscription %>
+          <%= form.select :subscription_id, subscriptions, { include_blank: 'Select a subscription' }, { required: true, class: 'form-control' } %>
+        </div>
+
+        <div class="field">
+          <%= form.label :buy_order %>
+          <%= form.text_field :buy_order, class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= form.label :amount %>
+          <%= form.number_field :amount, class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= form.label :status %>
+          <%= form.select :status, status, { include_blank: 'Select a status' }, { required: true, class: 'form-control' } %>
+        </div>
+
+        <div class="field">
+          <%= form.label :card_number %>
+          <%= form.text_field :card_number, class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= form.label :transaction_date %>
+          <%= form.date_field :transaction_date, class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= form.label :payment_type_code %>
+          <%= form.select :payment_type_code, payment_type_codes, { include_blank: 'Select a payment type code' }, { required: true, class: 'form-control' } %>
+        </div>
+
+        <div class="field">
+          <%= form.label :installments_amount %>
+          <%= form.number_field :installments_amount, class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= form.label :installments_number %>
+          <%= form.select :installments_number, (1..12).to_a, { include_blank: 'Select the installments number' }, { required: true, class: 'form-control' } %>
+        </div>
+
+        <div class="field">
+          <%= form.label :balance %>
+          <%= form.number_field :balance, class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= form.label :authorization_code %>
+          <%= form.text_field :authorization_code, class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= form.label :authorization_date %>
+          <%= form.date_field :authorization_date, class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= form.label :nullified_amount %>
+          <%= form.number_field :nullified_amount, class: 'form-control' %>
+        </div>
+
+        <br>
+
+        <div class="actions">
+          <%= form.submit 'Save', class: 'btn btn-dark' %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
   </div>
-
-  <div class="field">
-    <%= form.label :subscription_id %>
-    <%= form.text_field :subscription_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :buy_order %>
-    <%= form.text_field :buy_order %>
-  </div>
-
-  <div class="field">
-    <%= form.label :token %>
-    <%= form.text_field :token %>
-  </div>
-
-  <div class="field">
-    <%= form.label :amount %>
-    <%= form.text_field :amount %>
-  </div>
-
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.number_field :status %>
-  </div>
-
-  <div class="field">
-    <%= form.label :card_number %>
-    <%= form.text_field :card_number %>
-  </div>
-
-  <div class="field">
-    <%= form.label :transaction_date %>
-    <%= form.datetime_select :transaction_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :payment_type_code %>
-    <%= form.number_field :payment_type_code %>
-  </div>
-
-  <div class="field">
-    <%= form.label :installments_amount %>
-    <%= form.text_field :installments_amount %>
-  </div>
-
-  <div class="field">
-    <%= form.label :installments_number %>
-    <%= form.number_field :installments_number %>
-  </div>
-
-  <div class="field">
-    <%= form.label :balance %>
-    <%= form.text_field :balance %>
-  </div>
-
-  <div class="field">
-    <%= form.label :authorization_code %>
-    <%= form.text_field :authorization_code %>
-  </div>
-
-  <div class="field">
-    <%= form.label :authorization_date %>
-    <%= form.datetime_select :authorization_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :nullified_amount %>
-    <%= form.text_field :nullified_amount %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>
