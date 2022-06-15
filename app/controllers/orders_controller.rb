@@ -1,5 +1,9 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: %i[ show edit update destroy ]
+  before_action :set_users, only: %i[ new edit ]
+  before_action :set_subscriptions, only: %i[ new edit ]
+  before_action :set_status, only: %i[ new edit ]
+  before_action :set_payment_type_codes, only: %i[ new edit ]
 
   # GET /orders or /orders.json
   def index
@@ -61,6 +65,22 @@ class OrdersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_order
       @order = Order.find(params[:id])
+    end
+
+    def set_users
+      @users = User.all.collect { |user| [ "#{ user.first_name } #{ user.last_name }", user.id ] }
+    end
+
+    def set_subscriptions
+      @subscriptions = Subscription.all.collect { |subscription| [ subscription.name, subscription.id ] }
+    end
+
+    def set_status
+      @status = Order.statuses.keys.collect { |status| [ status.humanize, status ] }
+    end
+
+    def set_payment_type_codes
+      @payment_type_codes = Order.payment_type_codes.keys.collect { |payment_type_code| [ payment_type_code.humanize, payment_type_code ] }
     end
 
     # Only allow a list of trusted parameters through.
