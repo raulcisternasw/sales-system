@@ -1,5 +1,6 @@
 class SubscriptionsController < ApplicationController
   before_action :set_subscription, only: %i[ show edit update destroy ]
+  before_action :set_products, only: %i[ new edit ]
 
   # GET /subscriptions or /subscriptions.json
   def index
@@ -63,8 +64,22 @@ class SubscriptionsController < ApplicationController
       @subscription = Subscription.find(params[:id])
     end
 
+    def set_products
+      @products = Product.all
+    end
+
     # Only allow a list of trusted parameters through.
     def subscription_params
-      params.require(:subscription).permit(:name, :description, :total_amount, :is_active)
+      params.require(:subscription).permit(
+        :name,
+        :description,
+        :total_amount,
+        :is_active,
+        subscriptions_products_attributes: [
+          :id,
+          :product_id,
+          :_destroy
+        ]
+      )
     end
 end
