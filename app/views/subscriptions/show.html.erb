@@ -1,31 +1,38 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Subscription</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h1>Subscription</h1>
+    </div>
+  </div>
+  <br>
 
-<p>
-  <strong>Name:</strong>
-  <%= @subscription.name %>
-</p>
+  <p>
+    <strong>Name:</strong>
+    <%= @subscription.name %>
+  </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @subscription.description %>
-</p>
+  <p>
+    <strong>Description:</strong>
+    <%= @subscription.description %>
+  </p>
 
-<p>
-  <strong>Total amount:</strong>
-  <%= @subscription.total_amount %>
-</p>
+  <p>
+    <strong>Total amount:</strong>
+    <%= @subscription.total_amount %>
+  </p>
 
-<p>
-  <strong>Is active:</strong>
-  <%= @subscription.is_active %>
-</p>
+  <p>
+    <strong>Is active:</strong>
+    <%= @subscription.is_active %>
+  </p>
 
-<p>
-  <strong>Products:</strong>
-  <%= @subscription.products.pluck(:name).join(", ") if @subscription.products.present? %>
-</p>
+  <p>
+    <strong>Products:</strong>
+    <%= @subscription.products.pluck(:name).join(", ") if @subscription.products.present? %>
+  </p>
 
-<%= link_to 'Edit', edit_subscription_path(@subscription) %> |
-<%= link_to 'Back', subscriptions_path %>
+  <%= link_to 'Edit', edit_subscription_path(@subscription) %> |
+  <%= link_to 'Back', subscriptions_path %>
+</div>
