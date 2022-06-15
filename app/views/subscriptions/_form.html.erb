@@ -4,7 +4,7 @@
       <%= form_with(model: subscription) do |form| %>
         <% if subscription.errors.any? %>
           <div id="error_explanation">
-            <h2><%= pluralize(subscription.errors.count, "error") %> prohibited this subscription from being saved:</h2>
+            <h2><%= pluralize(subscription.errors.count, 'error') %> prohibited this subscription from being saved:</h2>
             <ul>
               <% subscription.errors.each do |error| %>
                 <li><%= error.full_message %></li>
@@ -44,7 +44,7 @@
             <label>Add products</label>
             <h2 class="">
               <span class="float-right">
-                <%= link_to_add_fields "Add product", form, :subscriptions_products, ".response_subscriptions_product" %>
+                <%= link_to_add_fields 'Add product', form, :subscriptions_products,'.response_subscriptions_product' %>
               </span>
             </h2>
             <br>
@@ -57,7 +57,7 @@
         </div>
 
         <div class="actions">
-          <%= form.submit 'Save', :class => 'btn btn-dark' %>
+          <%= form.submit 'Save', class: 'btn btn-dark' %>
         </div>
       <% end %>
     </div>
