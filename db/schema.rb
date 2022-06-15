@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_14_201629) do
+ActiveRecord::Schema.define(version: 2022_06_15_052046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,13 +46,6 @@ ActiveRecord::Schema.define(version: 2022_06_14_201629) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "products_subscriptions", id: false, force: :cascade do |t|
-    t.bigint "subscription_id", null: false
-    t.bigint "product_id", null: false
-    t.index ["product_id"], name: "index_products_subscriptions_on_product_id"
-    t.index ["subscription_id"], name: "index_products_subscriptions_on_subscription_id"
-  end
-
   create_table "subscriptions", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -60,6 +53,15 @@ ActiveRecord::Schema.define(version: 2022_06_14_201629) do
     t.boolean "is_active", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "subscriptions_products", force: :cascade do |t|
+    t.bigint "subscription_id", null: false
+    t.bigint "product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_subscriptions_products_on_product_id"
+    t.index ["subscription_id"], name: "index_subscriptions_products_on_subscription_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -82,4 +84,6 @@ ActiveRecord::Schema.define(version: 2022_06_14_201629) do
 
   add_foreign_key "orders", "subscriptions"
   add_foreign_key "orders", "users"
+  add_foreign_key "subscriptions_products", "products"
+  add_foreign_key "subscriptions_products", "subscriptions"
 end
