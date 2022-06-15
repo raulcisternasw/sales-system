@@ -1,6 +1,7 @@
 class SubscriptionsController < ApplicationController
   before_action :set_subscription, only: %i[ show edit update destroy ]
   before_action :set_products, only: %i[ new edit ]
+  before_action :set_is_active, only: %i[ new edit ]
 
   # GET /subscriptions or /subscriptions.json
   def index
@@ -66,6 +67,10 @@ class SubscriptionsController < ApplicationController
 
     def set_products
       @products = Product.all
+    end
+
+    def set_is_active
+      @is_active = [["Yes", "true"], ["No", "false"]]
     end
 
     # Only allow a list of trusted parameters through.

@@ -1,37 +1,65 @@
-<%= form_with(model: subscription) do |form| %>
-  <% if subscription.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(subscription.errors.count, "error") %> prohibited this subscription from being saved:</h2>
-
-      <ul>
-        <% subscription.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <%= form_with(model: subscription) do |form| %>
+        <% if subscription.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(subscription.errors.count, "error") %> prohibited this subscription from being saved:</h2>
+            <ul>
+              <% subscription.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
+
+        <div class="field">
+          <%= form.label :name %>
+          <%= form.text_field :name, class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= form.label :description %>
+          <%= form.text_area :description, class: 'form-control' %>
+        </div>
+
+        <!--<div class="field">
+          <%= form.label :total_amount %>
+          <%= form.text_field :total_amount %>
+        </div>-->
+
+        <% if coming.eql?(:edit) %>
+          <div class="field">
+            <%= form.label :is_active %>
+            <%= form.select :is_active, is_active, { include_blank: 'Select if the subscription is active' }, { required: true, class: 'form-control' } %>
+          </div>
+        <% end %>
+
+        <br>
+        <hr>
+        <br>
+
+        <div class="row mb-5">
+          <div class="col-md-12 dynamic-data">
+            <label>Add products</label>
+            <h2 class="">
+              <span class="float-right">
+                <%= link_to_add_fields "Add product", form, :subscriptions_products, ".response_subscriptions_product" %>
+              </span>
+            </h2>
+            <br>
+            <div class="response_subscriptions_product">
+              <%= form.fields_for :subscriptions_products do |subscriptions_product_fields| %>
+                <%= render 'subscriptions_product_fields', f: subscriptions_product_fields %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <%= form.submit 'Save', :class => 'btn btn-dark' %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
   </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <!--<div class="field">
-    <%= form.label :total_amount %>
-    <%= form.text_field :total_amount %>
-  </div>-->
-
-  <div class="field">
-    <%= form.label :is_active %>
-    <%= form.check_box :is_active %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>
