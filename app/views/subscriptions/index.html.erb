@@ -20,9 +20,9 @@
         <tr>
           <td><%= subscription.name %></td>
           <td><%= subscription.description %></td>
-          <td><%= subscription.products.pluck(:name).join(", ") if subscription.products.present? %></td>
-          <td><%= subscription.total_amount ? number_to_currency(subscription.total_amount, delimiter: ".", precision: 0) : "" %></td>
-          <td><%= subscription.is_active.eql?(true) ? "Yes" : "No" %></td>
+          <td><%= subscription.products.pluck(:name).join(', ') if subscription.products.present? %></td>
+          <td><%= subscription.total_amount ? number_to_currency(subscription.total_amount, delimiter: '.', precision: 0) : '' %></td>
+          <td><%= subscription.is_active.eql?(true) ? 'Yes' : 'No' %></td>
           <td><%= link_to 'Show', subscription %></td>
           <td><%= link_to 'Edit', edit_subscription_path(subscription) %></td>
           <td><%= link_to 'Destroy', subscription, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -35,3 +35,4 @@
 
   <%= link_to 'New Subscription', new_subscription_path %>
 </div>
+<br>
