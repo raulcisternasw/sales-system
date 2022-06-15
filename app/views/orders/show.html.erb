@@ -1,79 +1,112 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>User:</strong>
-  <%= @order.user_id %>
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h1>Order</h1>
+    </div>
+  </div>
+  <br>
 
-<p>
-  <strong>Subscription:</strong>
-  <%= @order.subscription_id %>
-</p>
+  <% if @order.user %>
+    <p>
+      <strong>User:</strong>
+      <%= "#{ @order.user.first_name } #{ @order.user.last_name }" %>
+    </p>
+  <% end %>
 
-<p>
-  <strong>Buy order:</strong>
-  <%= @order.buy_order %>
-</p>
+  <% if @order.subscription %>
+    <p>
+      <strong>Subscription:</strong>
+      <%= @order.subscription.name %>
+    </p>
+  <% end %>
 
-<p>
-  <strong>Token:</strong>
-  <%= @order.token %>
-</p>
+  <% if @order.buy_order %>
+    <p>
+      <strong>Buy order:</strong>
+      <%= @order.buy_order %>
+    </p>
+  <% end %>
 
-<p>
-  <strong>Amount:</strong>
-  <%= @order.amount %>
-</p>
+  <% if @order.amount %>
+    <p>
+      <strong>Amount:</strong>
+      <%= number_to_currency(@order.amount, delimiter: '.', precision: 0) %>
+    </p>
+  <% end %>
 
-<p>
-  <strong>Status:</strong>
-  <%= @order.status %>
-</p>
+  <% if @order.status %>
+    <p>
+      <strong>Status:</strong>
+      <%= @order.status.titleize %>
+    </p>
+  <% end %>
 
-<p>
-  <strong>Card number:</strong>
-  <%= @order.card_number %>
-</p>
+  <% if @order.card_number %>
+    <p>
+      <strong>Card number:</strong>
+      <%= @order.card_number %>
+    </p>
+  <% end %><big></big>
 
-<p>
-  <strong>Transaction date:</strong>
-  <%= @order.transaction_date %>
-</p>
+  <% if @order.transaction_date %>
+    <p>
+      <strong>Transaction date:</strong>
+      <%= @order.transaction_date.strftime('%d-%m-%Y %H:%M:%S') %>
+    </p>
+  <% end %>
 
-<p>
-  <strong>Payment type code:</strong>
-  <%= @order.payment_type_code %>
-</p>
+  <% if @order.payment_type_code %>
+    <p>
+      <strong>Payment type code:</strong>
+      <%= @order.payment_type_code.titleize %>
+    </p>
+  <% end %>
 
-<p>
-  <strong>Installments amount:</strong>
-  <%= @order.installments_amount %>
-</p>
+  <% if @order.installments_amount %>
+    <p>
+      <strong>Installments amount:</strong>
+      <%= number_to_currency(@order.installments_amount, delimiter: '.', precision: 0) %>
+    </p>
+  <% end %>
 
-<p>
-  <strong>Installments number:</strong>
-  <%= @order.installments_number %>
-</p>
+  <% if @order.installments_number %>
+    <p>
+      <strong>Installments number:</strong>
+      <%= @order.installments_number %>
+    </p>
+  <% end %>
 
-<p>
-  <strong>Balance:</strong>
-  <%= @order.balance %>
-</p>
+  <% if @order.balance %>
+    <p>
+      <strong>Balance:</strong>
+      <%= @order.balance %>
+    </p>
+  <% end %>
 
-<p>
-  <strong>Authorization code:</strong>
-  <%= @order.authorization_code %>
-</p>
+  <% if @order.authorization_code %>
+    <p>
+      <strong>Authorization code:</strong>
+      <%= @order.authorization_code.titleize %>
+    </p>
+  <% end %>
 
-<p>
-  <strong>Authorization date:</strong>
-  <%= @order.authorization_date %>
-</p>
+  <% if @order.authorization_date %>
+    <p>
+      <strong>Authorization date:</strong>
+      <%= @order.authorization_date.strftime('%d-%m-%Y %H:%M:%S') %>
+    </p>
+  <% end %>
 
-<p>
-  <strong>Nullified amount:</strong>
-  <%= @order.nullified_amount %>
-</p>
+  <% if @order.nullified_amount %>
+    <p>
+      <strong>Nullified amount:</strong>
+      <%= number_to_currency(@order.nullified_amount, delimiter: '.', precision: 0) %>
+    </p>
+  <% end %>
 
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+  <%= link_to 'Edit', edit_order_path(@order) %> |
+  <%= link_to 'Back', orders_path %>
+</div>
+<br>
