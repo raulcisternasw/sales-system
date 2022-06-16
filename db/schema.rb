@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_15_052046) do
+ActiveRecord::Schema.define(version: 2022_06_15_221031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2022_06_15_052046) do
     t.string "buy_order"
     t.string "token"
     t.decimal "amount"
-    t.integer "status"
+    t.integer "status", default: 0
     t.string "card_number"
     t.datetime "transaction_date"
     t.integer "payment_type_code"
