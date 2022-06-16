@@ -4,4 +4,5 @@ class Order < ApplicationRecord
   enum status: [:initialized, :authorized, :reversed, :failed, :nullified, :partially_nullified, :captured]
   enum payment_type_code: [:debit_sale, :normal_sale, :sale_installments, :three_installments_without_interest,
                            :two_installments_without_interest, :n_installments_without_interest, :prepaid_sale]
+  validates_uniqueness_of :user_id, conditions: -> { where(status: :authorized) }, if: Proc.new { |order| order.authorized? }, message: 'already has an order created.'
 end
