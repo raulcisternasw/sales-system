@@ -23,16 +23,76 @@ class OrdersController < ApplicationController
   def edit
   end
 
+  # Method to create a transaction
   # POST /orders or /orders.json
   def create
     @order = Order.new(order_params)
+    @order.user_id = current_user.id
 
     respond_to do |format|
       if @order.save
+        transaction  = create_transaction
+        @order.token = transaction["token"]
+        @order.save!
         format.html { redirect_to order_url(@order), notice: "Order was successfully created." }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # Method to confirm a transaction
+  def webpay_commit
+    @order      = Order.find_by(token: params[:token_ws])
+    response    = Orders::Webpay.commit(@order.token)
+    transaction = OpenStruct.new(response)
+    @order.set_transaction_data(transaction)
+
+    respond_to do |format|
+      if @order.save
+        format.html { redirect_to order_url(@order), notice: "Order was successfully confirm." }
+        format.json { render :show, status: :created, location: @order }
+      else
+        format.html { render :show, status: :unprocessable_entity }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # Method to get status of a transaction
+  def webpay_status
+    @order      = Order.find_by(token: params[:token])
+    response    = Orders::Webpay.status(@order.token)
+    transaction = OpenStruct.new(response)
+    @order.set_transaction_data(transaction)
+
+    respond_to do |format|
+      if @order.save
+        format.html { redirect_to order_url(@order), notice: "Order was successfully status." }
+        format.json { render :show, status: :created, location: @order }
+      else
+        format.html { render :show, status: :unprocessable_entity }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # Method to reverse or cancel a transaction
+  def webpay_refund
+    @order      = Order.find_by(token: params[:token])
+    response    = Orders::Webpay.refund(@order.token, @order.amount.to_i)
+    transaction = OpenStruct.new(response)
+    @order.set_status(transaction.type) if transaction.type.present?
+    @order.set_transaction_data(transaction) if transaction.type.eql?('NULLIFIED')
+
+    respond_to do |format|
+      if @order.save
+        format.html { redirect_to order_url(@order), notice: "Order was successfully refund." }
+        format.json { render :show, status: :created, location: @order }
+      else
+        format.html { render :show, status: :unprocessable_entity }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
@@ -81,6 +141,13 @@ class OrdersController < ApplicationController
 
     def set_payment_type_codes
       @payment_type_codes = Order.payment_type_codes.keys.collect { |payment_type_code| [ payment_type_code.humanize, payment_type_code ] }
+    end
+
+    # Method to create a transaction according to payment method
+    def create_transaction
+      session_id = @order.generate_session_id
+      return_url = @order.generate_return_url
+      response   = Orders::Webpay.create(@order.buy_order, session_id, @order.amount.to_i, return_url) rescue {}
     end
 
     # Only allow a list of trusted parameters through.

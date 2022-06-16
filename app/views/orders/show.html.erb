@@ -105,7 +105,69 @@
       <%= number_to_currency(@order.nullified_amount, delimiter: '.', precision: 0) %>
     </p>
   <% end %>
+  <br>
 
+  <hr>
+  <div class="row col-12">
+    <div class="col-12 text-center">
+      <h2>Get transaction status</h2>
+    </div>
+  </div>
+  <br>
+
+  <div class="row col-12">
+    <div class="col-12 text-center">
+      <%= form_with url: "/webpayplus/status/#{ @order.token }", method: :get do |form| %>
+        <%= form.submit 'Get status', class: 'btn btn-dark' %>
+      <% end %>
+    </div>
+  </div>
+  <br>
+  <hr>
+
+  <% if @order.initialized? %>
+    <div class="row col-12">
+      <div class="col-12 text-center">
+        <h2>Confirm transaction</h2>
+      </div>
+    </div>
+    <br>
+
+    <div class="row col-12">
+      <div class="col-12 text-center">
+        <%= form_with url: 'https://webpay3gint.transbank.cl/webpayserver/initTransaction', method: :post do |form| %>
+          <%= form.hidden_field :token_ws, value: @order.token %>
+          <%= form.submit 'Confirm', class: 'btn btn-dark' %>
+        <% end %>
+      </div>
+    </div>
+    <br>
+    <hr>
+  <% end %>
+
+  <% if @order.authorized? %>
+    <div class="row col-12">
+      <div class="col-12 text-center">
+        <h2>Transaction refund</h2>
+      </div>
+    </div>
+    <br>
+
+    <div class="row col-12">
+      <div class="col-12 text-center">
+        <%= form_with url: '/webpayplus/refund', method: :post, data: { confirm: '¿Are you sure to reverse or cancel the payment?' } do |form| %>
+          <%= form.hidden_field :token, value: @order.token %>
+          <%= form.number_field :amount, value: @order.amount.to_i, class: 'form-control', readonly: true %>
+          <br>
+          <%= form.submit 'Refund', class: 'btn btn-dark' %>
+        <% end %>
+      </div>
+    </div>
+    <br>
+    <hr>
+  <% end %>
+
+  <br>
   <%= link_to 'Edit', edit_order_path(@order) %> |
   <%= link_to 'Back', orders_path %>
 </div>

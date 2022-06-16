@@ -13,75 +13,75 @@
           </div>
         <% end %>
 
-        <div class="field">
+        <!--<div class="field">
           <%= form.label :user %>
           <%= form.select :user_id, users, { include_blank: 'Select a user' }, { required: true, class: 'form-control' } %>
-        </div>
+        </div>-->
 
         <div class="field">
           <%= form.label :subscription %>
           <%= form.select :subscription_id, subscriptions, { include_blank: 'Select a subscription' }, { required: true, class: 'form-control' } %>
         </div>
 
-        <div class="field">
+        <!--<div class="field">
           <%= form.label :buy_order %>
           <%= form.text_field :buy_order, class: 'form-control' %>
-        </div>
+        </div>-->
 
         <div class="field">
           <%= form.label :amount %>
-          <%= form.number_field :amount, class: 'form-control' %>
+          <%= form.number_field :amount, class: 'form-control', readonly: true %>
         </div>
 
-        <div class="field">
+        <!--<div class="field">
           <%= form.label :status %>
           <%= form.select :status, status, { include_blank: 'Select a status' }, { required: true, class: 'form-control' } %>
-        </div>
+        </div>-->
 
-        <div class="field">
+        <!--<div class="field">
           <%= form.label :card_number %>
           <%= form.text_field :card_number, class: 'form-control' %>
-        </div>
+        </div>-->
 
-        <div class="field">
+        <!--<div class="field">
           <%= form.label :transaction_date %>
           <%= form.date_field :transaction_date, class: 'form-control' %>
-        </div>
+        </div>-->
 
-        <div class="field">
+        <!--<div class="field">
           <%= form.label :payment_type_code %>
           <%= form.select :payment_type_code, payment_type_codes, { include_blank: 'Select a payment type code' }, { required: true, class: 'form-control' } %>
-        </div>
+        </div>-->
 
-        <div class="field">
+        <!--<div class="field">
           <%= form.label :installments_amount %>
           <%= form.number_field :installments_amount, class: 'form-control' %>
-        </div>
+        </div>-->
 
-        <div class="field">
+        <!--<div class="field">
           <%= form.label :installments_number %>
           <%= form.select :installments_number, (1..12).to_a, { include_blank: 'Select the installments number' }, { required: true, class: 'form-control' } %>
-        </div>
+        </div>-->
 
-        <div class="field">
+        <!--<div class="field">
           <%= form.label :balance %>
           <%= form.number_field :balance, class: 'form-control' %>
-        </div>
+        </div>-->
 
-        <div class="field">
+        <!--<div class="field">
           <%= form.label :authorization_code %>
           <%= form.text_field :authorization_code, class: 'form-control' %>
-        </div>
+        </div>-->
 
-        <div class="field">
+        <!--<div class="field">
           <%= form.label :authorization_date %>
           <%= form.date_field :authorization_date, class: 'form-control' %>
-        </div>
+        </div>-->
 
-        <div class="field">
+        <!--<div class="field">
           <%= form.label :nullified_amount %>
           <%= form.number_field :nullified_amount, class: 'form-control' %>
-        </div>
+        </div>-->
 
         <br>
 

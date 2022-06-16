@@ -13,6 +13,7 @@ Turbolinks.start()
 ActiveStorage.start()
 
 require('bootstrap')
+require("packs/orders")
 
 $(document).on('click', 'form .add_fields', function(event) {
   var regexp, time;
