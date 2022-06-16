@@ -12,4 +12,11 @@ class Orders::Webpay
     response    = transaction.commit(token)
     return response
   end
+
+  # Method to get status of a transaction
+  def self.status(token)
+    transaction = Transbank::Webpay::WebpayPlus::Transaction.new
+    response    = transaction.status(token)
+    return response
+  end
 end
