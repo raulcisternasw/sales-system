@@ -5,4 +5,11 @@ class Orders::Webpay
     response    = transaction.create(buy_order, session_id, amount, return_url)
     return response
   end
+
+  # Method to confirm a transaction
+  def self.commit(token)
+    transaction = Transbank::Webpay::WebpayPlus::Transaction.new
+    response    = transaction.commit(token)
+    return response
+  end
 end
