@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   resources :orders
   # Webpay Routes
   get '/webpayplus/return_url', to: 'orders#webpay_commit', as: :webpay_commit
+  get 'webpayplus/status/:token', to: 'orders#webpay_status', as: :webpay_status
 end
