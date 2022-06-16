@@ -11,4 +11,9 @@ class Order < ApplicationRecord
   def generate_buy_order
     self.buy_order = "sales-system-#{ self.id }"
   end
+
+  # Method to generate session id
+  def generate_session_id
+    session_id = "session#{ rand(10000) }"
+  end
 end
