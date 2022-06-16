@@ -79,6 +79,25 @@ class OrdersController < ApplicationController
     end
   end
 
+  # Method to reverse or cancel a transaction
+  def webpay_refund
+    @order      = Order.find_by(token: params[:token])
+    response    = Orders::Webpay.refund(@order.token, @order.amount.to_i)
+    transaction = OpenStruct.new(response)
+    @order.set_status(transaction.type) if transaction.type.present?
+    @order.set_transaction_data(transaction) if transaction.type.eql?('NULLIFIED')
+
+    respond_to do |format|
+      if @order.save
+        format.html { redirect_to order_url(@order), notice: "Order was successfully refund." }
+        format.json { render :show, status: :created, location: @order }
+      else
+        format.html { render :show, status: :unprocessable_entity }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # PATCH/PUT /orders/1 or /orders/1.json
   def update
     respond_to do |format|
