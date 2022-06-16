@@ -19,4 +19,11 @@ class Orders::Webpay
     response    = transaction.status(token)
     return response
   end
+
+  # Method to reverse or void a transaction
+  def self.refund(token, amount)
+    transaction = Transbank::Webpay::WebpayPlus::Transaction.new
+    response    = transaction.refund(token, amount)
+    return response
+  end
 end
