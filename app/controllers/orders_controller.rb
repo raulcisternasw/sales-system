@@ -43,6 +43,24 @@ class OrdersController < ApplicationController
     end
   end
 
+  # Method to confirm a transaction
+  def webpay_commit
+    @order      = Order.find_by(token: params[:token_ws])
+    response    = Orders::Webpay.commit(@order.token)
+    transaction = OpenStruct.new(response)
+    @order.set_transaction_data(transaction)
+
+    respond_to do |format|
+      if @order.save
+        format.html { redirect_to order_url(@order), notice: "Order was successfully confirm." }
+        format.json { render :show, status: :created, location: @order }
+      else
+        format.html { render :show, status: :unprocessable_entity }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # PATCH/PUT /orders/1 or /orders/1.json
   def update
     respond_to do |format|
