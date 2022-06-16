@@ -16,4 +16,9 @@ class Order < ApplicationRecord
   def generate_session_id
     session_id = "session#{ rand(10000) }"
   end
+
+  # Method to generate return url
+  def generate_return_url
+    return_url = "http://localhost:3000/webpayplus/return_url"
+  end
 end
