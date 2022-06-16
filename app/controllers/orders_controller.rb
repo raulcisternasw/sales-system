@@ -23,12 +23,17 @@ class OrdersController < ApplicationController
   def edit
   end
 
+  # Method to create a transaction
   # POST /orders or /orders.json
   def create
     @order = Order.new(order_params)
+    @order.user_id = current_user.id
 
     respond_to do |format|
       if @order.save
+        transaction  = create_transaction
+        @order.token = transaction["token"]
+        @order.save!
         format.html { redirect_to order_url(@order), notice: "Order was successfully created." }
         format.json { render :show, status: :created, location: @order }
       else
@@ -81,6 +86,13 @@ class OrdersController < ApplicationController
 
     def set_payment_type_codes
       @payment_type_codes = Order.payment_type_codes.keys.collect { |payment_type_code| [ payment_type_code.humanize, payment_type_code ] }
+    end
+
+    # Method to create a transaction according to payment method
+    def create_transaction
+      session_id = @order.generate_session_id
+      return_url = @order.generate_return_url
+      response   = Orders::Webpay.create(@order.buy_order, session_id, @order.amount.to_i, return_url) rescue {}
     end
 
     # Only allow a list of trusted parameters through.
