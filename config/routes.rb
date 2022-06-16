@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   resources :products
   # Orders Routes
   resources :orders
+  # Webpay Routes
+  get '/webpayplus/return_url', to: 'orders#webpay_commit', as: :webpay_commit
 end
