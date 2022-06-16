@@ -108,6 +108,23 @@
   <br>
 
   <hr>
+  <div class="row col-12">
+    <div class="col-12 text-center">
+      <h2>Get transaction status</h2>
+    </div>
+  </div>
+  <br>
+
+  <div class="row col-12">
+    <div class="col-12 text-center">
+      <%= form_with url: "/webpayplus/status/#{ @order.token }", method: :get do |form| %>
+        <%= form.submit 'Get status', class: 'btn btn-dark' %>
+      <% end %>
+    </div>
+  </div>
+  <br>
+  <hr>
+
   <% if @order.initialized? %>
     <div class="row col-12">
       <div class="col-12 text-center">
